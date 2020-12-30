@@ -13,6 +13,10 @@ const GET_MOVIES = gql`
       rating
       description_full
     }
+    suggestions(id: $id) {
+      id
+      medium_cover_image
+    }
   }
 `;
 const Container = styled.div`
@@ -61,18 +65,12 @@ export default () => {
     <Container>
       <Column>
         <Title>{loading ? "Loading..." : data.movie.title}</Title>
-        {!loading && data.movie && (
-          <>
-            <Subtitle>
-              {data.movie.language} · {data.movie.rating}
-            </Subtitle>
-            <Description>{data.movie.description_full}</Description>
-          </>
-        )}
+        <Subtitle>
+          {data?.movie?.language} · {data?.movie?.rating}
+        </Subtitle>
+        <Description>{data?.movie?.description_full}</Description>
       </Column>
-      <Poster
-        bg={data && data.movie ? data.movie.medium_cover_image : ""}
-      ></Poster>
+      <Poster bg={data?.movie?.medium_cover_image}></Poster>
     </Container>
   );
 };
